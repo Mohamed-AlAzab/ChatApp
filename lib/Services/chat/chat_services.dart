@@ -6,6 +6,7 @@ class ChatService {
   final FirebaseFirestore _firestore = FirebaseFirestore.instance;
   final FirebaseAuth _auth = FirebaseAuth.instance;
 
+  // get user stream
   Stream<List<Map<String, dynamic>>> getUserStream() {
     return _firestore.collection("Users").snapshots().map((snapshot) {
       return snapshot.docs.map((doc) {
@@ -15,6 +16,8 @@ class ChatService {
       }).toList();
     });
   }
+
+  // get user stream except blocked user
 
   // send message
   Future<void> sendMessage(String receiverID, message) async {
@@ -58,4 +61,23 @@ class ChatService {
         .orderBy("timestamp", descending: false)
         .snapshots();
   }
+
+  // Report user
+  Future<void> reportUser(String messageId, String userId) async {
+    final currentUser = _auth.currentUser;
+    final report = {
+      'reportedBy': currentUser!.uid,
+      'messageid': messageId,
+      'messageOwnerId': userId,
+      'timestemp': FieldValue.serverTimestamp(),
+    };
+    await _firestore.collection('Report').add(report);
+  }
+
+  // Block user
+  
+
+  // Unblock user
+
+  // get blocked user
 }

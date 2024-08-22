@@ -16,24 +16,27 @@ class MyTextField extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return TextField(
-      obscureText: isPasswordField,
-      controller: controller,
-      focusNode: focusNode,
-      decoration: InputDecoration(
-        enabledBorder: OutlineInputBorder(
-          borderSide: BorderSide(
-            color: Theme.of(context).colorScheme.tertiary,
+    return Container(
+      child: TextField(
+        obscureText: isPasswordField,
+        controller: controller,
+        focusNode: focusNode,
+        decoration: InputDecoration(
+          enabledBorder: OutlineInputBorder(
+            borderSide: BorderSide(
+              color: Theme.of(context).colorScheme.secondary,
+            ),
           ),
-        ),
-        focusedBorder: OutlineInputBorder(
-          borderSide: BorderSide(color: Theme.of(context).colorScheme.primary),
-        ),
-        fillColor: Theme.of(context).colorScheme.secondary,
-        filled: true,
-        hintText: hintText,
-        hintStyle: TextStyle(
-          color: Theme.of(context).colorScheme.primary,
+          focusedBorder: OutlineInputBorder(
+            borderSide:
+                BorderSide(color: Theme.of(context).colorScheme.primary),
+          ),
+          fillColor: Theme.of(context).colorScheme.primary,
+          filled: true,
+          hintText: hintText,
+          hintStyle: TextStyle(
+            color: Theme.of(context).colorScheme.inversePrimary,
+          ),
         ),
       ),
     );

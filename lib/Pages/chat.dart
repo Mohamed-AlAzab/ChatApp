@@ -10,7 +10,7 @@ class Chat extends StatefulWidget {
   final String receiverEmail;
   final String receiverID;
 
-  Chat({
+  const Chat({
     super.key,
     required this.receiverEmail,
     required this.receiverID,
@@ -76,40 +76,47 @@ class _ChatState extends State<Chat> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Theme.of(context).colorScheme.background,
       appBar: AppBar(
         leading: IconButton(
-          icon: const Icon(
+          icon: Icon(
             Icons.arrow_back_ios,
-            color: Colors.grey,
+            color: Theme.of(context).colorScheme.surface,
           ),
           onPressed: () {
             Navigator.of(context).pushNamedAndRemoveUntil(
                 '/Home', (Route<dynamic> route) => false);
           },
         ),
-        backgroundColor: Theme.of(context).colorScheme.tertiary,
+        backgroundColor: Theme.of(context).colorScheme.primary,
         centerTitle: true,
         title: Text(
           widget.receiverEmail,
           style: TextStyle(
-            color: Theme.of(context).colorScheme.primary,
+            color: Theme.of(context).colorScheme.surface,
             fontWeight: FontWeight.w600,
           ),
         ),
       ),
-      body: Padding(
-        padding: const EdgeInsets.all(8.0),
-        child: Column(
-          children: [
-            //display all message
-            Expanded(
-              child: _buildMessageList(),
-            ),
+      body: Container(
+        decoration: const BoxDecoration(
+          image: DecorationImage(
+            image: AssetImage("assets/images/doodle.png"),
+            fit: BoxFit.cover,
+          ),
+        ),
+        child: Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: Column(
+            children: [
+              //display all message
+              Expanded(
+                child: _buildMessageList(),
+              ),
 
-            // user input
-            _buildUserInput()
-          ],
+              // user input
+              _buildUserInput()
+            ],
+          ),
         ),
       ),
     );
@@ -178,7 +185,7 @@ class _ChatState extends State<Chat> {
         // send button
         Container(
           decoration: BoxDecoration(
-            color: Colors.teal,
+            color: Theme.of(context).colorScheme.primary,
             shape: BoxShape.circle,
           ),
           margin: const EdgeInsets.only(
@@ -187,7 +194,7 @@ class _ChatState extends State<Chat> {
           child: IconButton(
             onPressed: sendMessage,
             icon: const Icon(
-              Icons.arrow_forward,
+              Icons.send,
             ),
           ),
         )

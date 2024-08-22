@@ -22,12 +22,12 @@ class Home extends StatelessWidget {
         title: Text(
           "ChatApp",
           style: TextStyle(
-            color: Theme.of(context).colorScheme.background,
+            color: Colors.white,
             fontWeight: FontWeight.w600,
           ),
         ),
       ),
-      backgroundColor: Theme.of(context).colorScheme.background,
+      backgroundColor: Theme.of(context).colorScheme.surface,
       body: _buildUserList(),
     );
   }
@@ -56,13 +56,13 @@ class Home extends StatelessWidget {
       Map<String, dynamic> userData, BuildContext context) {
     if (userData["email"] != _authService.getCurrentUser()!.email) {
       return UserTile(
-        text: userData["email"],
+        text: name(userData["email"]),
         onTap: () {
           Navigator.push(
             context,
             MaterialPageRoute(
               builder: (context) => Chat(
-                receiverEmail: userData["email"],
+                receiverEmail: name(userData["email"]),
                 receiverID: userData["uid"],
               ),
             ),
@@ -73,4 +73,15 @@ class Home extends StatelessWidget {
       return Container();
     }
   }
+}
+
+String name(String name) {
+  // Find the index of '@'
+  int atIndex = name.indexOf('@');
+  // If '@' is not found, return the full email as is
+  if (atIndex == -1) {
+    return name;
+  }
+  // Extract and return the substring before '@'
+  return name.substring(0, atIndex);
 }
